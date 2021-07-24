@@ -1,0 +1,25 @@
+//- extends layout
+
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/styletest_mprofile.css')
+    
+  body
+    header 
+        div.logo 
+            a(href='http://localhost:3000/test_mmain') pamlogo
+        div.profile 
+            a(href='http://localhost:3000/test_mprofile') profile
+    main
+        block content
+            div.card
+                div.card-body
+                    div.profile-body 
+                        div.profile-img
+                        p.profile-info 사용자 정보  
+                            button.btn_login
+                                a(href="http://localhost:3000/test_mmain")  로그아웃
+
+                .card-footer

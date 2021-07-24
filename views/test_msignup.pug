@@ -1,0 +1,45 @@
+//- extends layout
+
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/styletest_msignup.css')
+  body
+    header 
+            div.logo 
+                a(href='http://localhost:3000/test_mmain') pamlogo
+    main
+        block content
+            .card.text-center
+                .card-header
+                    h1= title
+                .card-body2
+                    form.signupform(action='/signup', method='POST')
+                        p 아이디정보
+                        div.id-area
+                            label(for='id')
+                            br
+                            input(type='id', name='id', placeholder='ID', required='')
+                        div.pw-area
+                            label(for='password') 
+                            br
+                            input(type='password', name='password', placeholder='PASSWORD', required='')
+                        div.pwch-area
+                            label(for='passwordCheck') 
+                            br
+                            input(type='password', name='passwordCheck', placeholder='PASSWORD CHECK', required='')
+                        p 사용자정보
+                        div.name-area
+                            label(for='name') 
+                            br
+                            input(type='name', name='name', placeholder='이름', required='')
+                        div.phone-area
+                            label(for='phone') 
+                            br
+                            input(type='phone', name='phone', placeholder='연락처', required='')
+                        div.email-area
+                            label(for='email')
+                            br
+                            input(type='email', name='email', placeholder='이메일', required='')
+                        button.btn SIGNUP!

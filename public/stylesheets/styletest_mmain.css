@@ -1,0 +1,112 @@
+* {margin: 0 auto; list-style: none;}
+a {  color: #70AD47;   text-decoration: none;}
+
+
+/* header */
+header{
+  padding: 40px 0;
+  font-size: 40px;
+}
+
+.logo {display: flex; float: left;}
+.profile{text-align: right;}
+
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  width: 80%;
+  margin-bottom: 30px;
+}  
+/* card*/
+.card{
+  display: flex;
+}
+.card-menu {
+  width:200px;
+	height:630px;
+  padding: 40px;
+  float:left;
+  margin-right:10px;
+  background: #ffffff;
+  border: 1px solid #70AD47;
+}
+.card-body{
+  float: left;
+  width: 100%;
+  background-color: #fff;
+  
+}
+.data{
+  width: 100%;
+  background-color: #eeeeee;
+  height: 400px;
+  border: 1px solid #70AD47;
+  margin-bottom: 40px;
+  color: black;
+
+  /*아래 나중에지워줄것*/
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.admsg{
+  width: 100%;
+  background-color: #eee;
+  height: 298px;
+  border: 1px solid #70AD47;
+  margin-bottom: 40px;
+
+  /*아래 나중에지워줄것*/
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.eninfo{
+  width: 100%;
+  background-color: #eee;
+  height: 298px;
+  border: 1px solid #70AD47;
+  
+  /*아래 나중에지워줄것*/
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/*navi*/
+.menu{
+	width:100%;
+	text-align:center;
+}
+.navi{
+  margin: 0;
+  padding: 0;
+  float: left;
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
+}
+.navi > li {
+  margin: 20px 0;
+}
+.navi > li > a{
+	width:100%;
+	margin:50px 0;
+	font-size:16px;
+	color:#999;
+}
+.navi > li > a:hover{
+	color:#222328;
+}
+p {
+  color: #70AD47;
+}
+
+
+footer {
+  text-align: center; 
+  margin: 20px;
+}

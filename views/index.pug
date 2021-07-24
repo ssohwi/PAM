@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  .card.text-center
+    .card-header
+      h1= title
+    .card-body
+      h1 WELCOME! #{name}
+      if name 
+        if is_admin
+          input.btn(type='button', onclick=" location.href='/admin'", value='ADMIN')
+        div
+          input.btn(type='button', onclick=" location.href='/profile'", value='PROFILE')
+          input.btn(type='button', onclick=" location.href='/logout'", value='LOGOUT')
+      else
+        div
+          input.btn(type='button', onclick=" location.href='/login'", value='LOGIN')
+        div
+          input.btn(type='button', onclick=" location.href='/signup'", value='SIGNUP')
+    .card-footer

@@ -1,36 +1,33 @@
-var Crawler = require("crawler");
+const axios = require("axios");
+const cheerio = require("cheerio");
 
-var crawler = new Crawler({
-  maxConnections: 10,
-  // This will be called for each crawled page
-  callback: function (error, res, done) {
-    if (error) {
-      console.log(error);
-    } else {
-      var $ = res.$;
-      // $ is Cheerio by default
-      //a lean implementation of core jQuery designed specifically for the server
-      console.log($("title").text());
+const url = 'http://www.hkbs.co.kr/';
 
-      const $bodyList = $("ul.news_list").children("li.news_item");
-
-      let newsList = [];
-      $bodyList.each(function (i, elem) {
-        newsList[i] = {
-          title: $(this).find('div.info_area strong').text(),
-          url: $(this).find('a.link').attr('href'),
-          image_url: $(this).find('div.thumb_area img').attr('src'),
-          image_alt: $(this).find('div.thumb_area img').attr('alt'),
-          // summary: $(this).find('p.lead').text().slice(0, -11),
-          // date: $(this).find('span.p-time').text()
-        };
-      });
-
-      console.log(newsList);
-    }
-    done();
+const getHtml = async (url) => {
+  try {
+    return await axios.get(url);
+  } catch (error) {
+    console.error(error);
   }
-});
+};
 
-// Queue just one URL, with default callback
-c.queue('https://weather.naver.com/');
+const crawling = getHtml(url)
+  .then(html => {
+    let ulList = [];
+    const $ = cheerio.load(html.data);
+    const $bodyList = $("div#skin-12").children("div.item");
+    $bodyList.each(function (i, elem) {
+      ulList[i] = {
+        title: $(this).find('span.content strong').text(),
+        url: $(this).find('a').attr('href'),
+        image_url: $(this).find('em.auto-images').attr('style').slice(21, -1),
+      };
+    });
+    return ulList.filter(n => n.title);
+  })
+
+var ts = "https://api.thingspeak.com/channels/1396062/feeds.json?api_key=Z08R8XG4ODAGPNH8&results=2";
+
+
+
+module.exports = { crawling };

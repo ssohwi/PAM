@@ -3,6 +3,8 @@ const router = express.Router();
 const Account = require('../models/account');
 const { signUp, login, deleteUser, profile, pwCheck } = require('../controllers/auth');
 const { isLoggedIn, isNotLoggedIn, isAdmin } = require('../controllers/isAuth');
+const { crawling } = require('../controllers/crawler');
+
 
 router.use((req, res, next) => {
     res.locals.user = req.user;
@@ -10,7 +12,9 @@ router.use((req, res, next) => {
 });
 
 router.get('/', function (req, res, next) {
-    res.render('index', { title: 'Main', name: req.session.name, is_admin: req.session.is_admin });
+
+
+    crawling.then(result => res.render('index', { title: 'Main', name: req.session.name, is_admin: req.session.is_admin, article: result }));
 });
 
 router.get('/login', isNotLoggedIn, function (req, res, next) {

@@ -17,4 +17,14 @@ block content
           input.btn(type='button', onclick=" location.href='/login'", value='LOGIN')
         div
           input.btn(type='button', onclick=" location.href='/signup'", value='SIGNUP')
+      div 
+      each item in article
+        <br>
+        - var url = "http://www.hkbs.co.kr" + item.url
+        - var title = item.title
+        - var img = item.image_url 
+        a(href=url)
+          img(src=img)
+          h3 #{title}
+      
     .card-footer

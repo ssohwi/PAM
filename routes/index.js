@@ -4,6 +4,7 @@ const Account = require('../models/account');
 const { signUp, login, deleteUser, profile, pwCheck } = require('../controllers/auth');
 const { isLoggedIn, isNotLoggedIn, isAdmin } = require('../controllers/isAuth');
 const { crawling } = require('../controllers/crawler');
+const { thingspeakData } = require('../controllers/thingspeak');
 
 
 router.use((req, res, next) => {
@@ -11,9 +12,11 @@ router.use((req, res, next) => {
     next();
 });
 
+
+
+router.get('/a', isNotLoggedIn, thingspeakData);
+
 router.get('/', function (req, res, next) {
-
-
     crawling.then(result => res.render('index', { title: 'Main', name: req.session.name, is_admin: req.session.is_admin, article: result }));
 });
 

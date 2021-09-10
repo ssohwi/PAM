@@ -10,7 +10,6 @@ const Trash = new Schema({
     entryId: {
         type: Number,
         required: true,
-        unique: true,
     },
     can: {
         type: Number,

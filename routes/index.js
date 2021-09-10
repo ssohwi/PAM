@@ -14,6 +14,10 @@ router.use((req, res, next) => {
     next();
 });
 
+router.get('/a', function (req, res, next) {
+
+});
+
 router.get('/', function (req, res, next) {
     if (isLoggedIn) {
         request("https://api.thingspeak.com/channels/1396062/feeds.json?results=1", async (error, response, body) => {
@@ -24,44 +28,83 @@ router.get('/', function (req, res, next) {
             var trashData = await Trash.find({ userId: userId }).sort({ "entryId": -1 });
             var data = JSON.parse(body).feeds[0];
             var entryId = data.entry_id;
-
             // 저장
-            if (trashData[0].entryId < entryId) {
-                var cnt = entryId - trashData[0].entryId;
-                var addUrl = "https://api.thingspeak.com/channels/1396062/feeds.json?results=" + cnt;
-                request(addUrl, async (error, response, body) => {
-                    for (var i = 0; i < cnt; i++) {
-                        var addData = JSON.parse(body).feeds[i];
-                        try {
-                            // 필드 5678로 변경해야 함
-                            var entryId = addData.entry_id;
-                            var createdAt = addData.created_at;
-                            var canCnt = addData.field1;
-                            var glassCnt = addData.field2;
-                            var plasticCnt = addData.field3;
-                            var totalCnt = addData.field4;
+            try {
+                // 처음 사용한 user
+                if (trashData.length == 0) {
+                    request("https://api.thingspeak.com/channels/1396062/feeds.json", async (error, response, body) => {
+                        var data = JSON.parse(body).feeds;
+                        for (var i = 0; i < Object.keys(data).length; i++) {
+                            var addData = JSON.parse(body).feeds[i];
+                            try {
+                                // 필드 5678로 변경해야 함
+                                var entryId = addData.entry_id;
+                                var createdAt = addData.created_at;
+                                var canCnt = addData.field1;
+                                var glassCnt = addData.field2;
+                                var plasticCnt = addData.field3;
+                                var totalCnt = addData.field4;
 
-                            const trash = new Trash({
-                                _id: new mongoose.Types.ObjectId(),
-                                userId: userId,
-                                entryId: entryId,
-                                can: canCnt,
-                                glass: glassCnt,
-                                plastic: plasticCnt,
-                                total: totalCnt,
-                                createdAt: createdAt,
-                            });
-                            await trash.save();
-                        } catch (error) {
-                            console.error(error.message);
+                                const trash = new Trash({
+                                    _id: new mongoose.Types.ObjectId(),
+                                    userId: userId,
+                                    entryId: entryId,
+                                    can: canCnt,
+                                    glass: glassCnt,
+                                    plastic: plasticCnt,
+                                    total: totalCnt,
+                                    createdAt: createdAt,
+                                });
+                                await trash.save();
+                            } catch (error) {
+                                console.error(error.message);
+                            }
                         }
-                    }
+                        console.log("New data saved!")
+                    });
+                }
+                // 기존 user
+                else if (trashData[0].entryId < entryId) {
+                    var cnt = entryId - trashData[0].entryId;
+                    var addUrl = "https://api.thingspeak.com/channels/1396062/feeds.json?results=" + cnt;
 
-                });
+                    request(addUrl, async (error, response, body) => {
+                        for (var i = 0; i < cnt; i++) {
+                            var addData = JSON.parse(body).feeds[i];
+                            try {
+                                // 필드 5678로 변경해야 함
+                                var entryId = addData.entry_id;
+                                var createdAt = addData.created_at;
+                                var canCnt = addData.field1;
+                                var glassCnt = addData.field2;
+                                var plasticCnt = addData.field3;
+                                var totalCnt = addData.field4;
+
+                                const trash = new Trash({
+                                    _id: new mongoose.Types.ObjectId(),
+                                    userId: userId,
+                                    entryId: entryId,
+                                    can: canCnt,
+                                    glass: glassCnt,
+                                    plastic: plasticCnt,
+                                    total: totalCnt,
+                                    createdAt: createdAt,
+                                });
+                                await trash.save();
+                            } catch (error) {
+                                console.error(error.message);
+                            }
+                        }
+
+                    });
+                }
+            } catch (error) {
+                console.error(error.message);
             }
 
             // 출력
             let can = 0, plastic = 0, total = 0, glass = 0;
+            var trashData = await Trash.find({ userId: userId }).sort({ "entryId": -1 });
             trashData.forEach(element => {
                 // 날짜 지우기
                 let today = new Date('2021-08-04').toLocaleDateString();
@@ -115,8 +158,28 @@ router.get('/signup', isNotLoggedIn, function (req, res, next) {
 
 router.get("/leave", deleteUser);
 
-router.get('/admin', isAdmin, function (req, res, next) {
-    res.render('admin', { title: 'Admin' });
+router.get('/admin', isAdmin, async (req, res, next) => {
+
+    var trashData = await Trash.aggregate([
+        // {$match: {dateOfDay: {$gte: new Date('12/01/2014'), $lt:new Date('12/30/2014')}}},
+        {
+            $group: {
+                _id: '$userId',
+                can: { $sum: '$can' },
+                glass: { $sum: '$glass' },
+                plastic: { $sum: '$plastic' },
+                total: { $sum: '$total' },
+                count: { $sum: 1 },
+                avg: { $avg: '$can' }
+            }
+        }
+    ]);
+    res.send(trashData);
+    // crawling.then(result => res.render('admin', {
+    //     title: 'Admin',
+    //     article: result,
+    //     trashData: trashData,
+    // }));
 });
 
 router.get('/logout', isLoggedIn, (req, res) => {

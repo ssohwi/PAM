@@ -7,9 +7,6 @@ var url = "https://api.thingspeak.com/channels/1396062/feeds.json?results=1"
 var thingspeakData = (req, res, next) => {
     try {
         request(url, async (error, response, body) => {
-            if (error) {
-                console.error('thingspeakData request error:', error);
-            }
             var userId = req.session._id;
             var trashData = await Trash.find({ userId: userId }).sort({ "entryId": -1 });
             var data = JSON.parse(body).feeds[0];
@@ -22,6 +19,7 @@ var thingspeakData = (req, res, next) => {
                 request(addUrl, async (error, response, body) => {
                     for (var i = 0; i < cnt; i++) {
                         var addData = JSON.parse(body).feeds[i];
+                        console.log("addData", addData);
                         try {
                             // 필드 5678로 변경해야 함
                             var entryId = addData.entry_id;

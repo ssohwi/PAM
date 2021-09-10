@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 // 생성자
 const Trash = new Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Account'
+    },
     entryId: {
         type: Number,
         required: true,
@@ -22,7 +26,7 @@ const Trash = new Schema({
     },
     total: {
         type: Number,
-        required: true,
+        required: false,
     },
     createdAt: {
         type: Date,

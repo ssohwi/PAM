@@ -18,6 +18,21 @@ block content
         div
           input.btn(type='button', onclick=" location.href='/signup'", value='SIGNUP')
       div 
+        if name
+        table
+          tr
+            th 캔
+            td #{todayTrash[0]}
+          tr
+            th 유리
+            td #{todayTrash[1]}
+          tr
+            th 플라스틱
+            td #{todayTrash[2]}
+          tr
+            th 총
+            td #{todayTrash[3]}
+      
       each item in article
         <br>
         - var url = "http://www.hkbs.co.kr" + item.url

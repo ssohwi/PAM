@@ -1,0 +1,49 @@
+<% include ../partials/header %>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script>
+      
+    </script>
+</head>
+<body>
+        <div class="container">
+            <form action="/admin/detail/update/<%= forms.id%>" method="post">
+            <div class="field">
+                <label class="label">Title</label>
+                <div class="control">
+                    <input name="title" class="input" type="text" placeholder="Text input">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Author</label>
+                <div class="control">
+                    <input name="author" class="input" type="text" placeholder="Text input">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Message</label>
+                <div class="control">
+                    <textarea name="detail" class="textarea" placeholder="Textarea"></textarea>
+                </div>
+            </div>
+
+            
+                <div class="control">
+                    <button class="button is-link" style="background: #000;">Write</button>
+                </div>
+           
+
+        </div>
+    </section>
+
+
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+<% include ../partials/header %>
+  <div class="container">
+    <% if (ideas.length > 0) {%>
+      <h3 class="mb-3"> <%= user %>의 리스트</h3>
+      <% ideas.forEach(idea => {%>
+        <div class="card card-body mb-2" style="width:50%; box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important; border-radius: .35rem;">
+          <h4><%= idea.title %></h4>
+          <p><%= idea.details %></p>
+          <a href="/ideas/edit/<%= idea._id %>" class="btn btn-dark btn-block shadow  mb-2" style="width: 20%; background-color: #0969c9; border: 0px;">수정</a>
+          <form method="post" action="ideas/<%= idea._id %>?_method=DELETE">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" class="btn btn-danger btn-block" value="삭제" style="width: 20%; background-color: #0969c9;  border: 0px;">
+          </form>
+        </div>
+      <% }); %>
+    <% } else { %>
+      <p>No video ideas listed!</p>
+    <% } %>
+  </div>
+<% include ../partials/scripts %>
+</body>
+</html>
+
+

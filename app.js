@@ -6,6 +6,7 @@ const logger = require('morgan');
 const dotenv = require('dotenv');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+var expressLayouts = require('express-ejs-layouts');
 
 const indexRouter = require('./routes');
 const connect = require('./models')
@@ -14,7 +15,8 @@ const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
+app.use(expressLayouts);
 
 // db 연결
 connect();

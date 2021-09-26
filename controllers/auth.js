@@ -69,17 +69,37 @@ const login = async (req, res) => {
 };
 
 // 회원 수정
-const profile = (req, res) => {
+const profile = async (req, res) => {
     try {
-        const { email, password, passwordCheck, name } = req.body;
-        if (password !== passwordCheck) {
+        const { email, password, chPassword, chPasswordCheck, name } = req.body;
+        const user = await Account.findOne({ email });
+        if (user.password !== crypto.createHash('sha512').update(password).digest('base64')) {
             res.send('<script> alert("비밀번호가 일치하지 않습니다."); window.location="/profile"; </script>');
         }
         else {
-            Account.findByIdAndUpdate(req.session._id, { $set: { name: name, email: email, password: password } },
-                function () {
-                    res.send('<script> alert("회원 정보가 변경되었습니다."); window.location="/profile"; </script>');
-                });
+            if (chPassword) {
+                if (!chPasswordCheck) {
+                    res.send('<script> alert("변경할 비밀번호 확인란을 입력해주세요."); window.location="/profile"; </script>');
+                }
+                else {
+                    if (chPassword == chPasswordCheck) {
+                        var newPassword = crypto.createHash('sha512').update(chPassword).digest('base64')
+                        Account.findByIdAndUpdate(req.session._id, { $set: { name: name, password: newPassword } },
+                            function () {
+                                res.send('<script> alert("회원 정보가 변경되었습니다."); window.location="/profile"; </script>');
+                            });
+                    }
+                    else {
+                        res.send('<script> alert("변경할 비밀번호 확인란이 일치하지 않습니다."); window.location="/profile"; </script>');
+                    }
+                }
+            }
+            else {
+                Account.findByIdAndUpdate(req.session._id, { $set: { name: name } },
+                    function () {
+                        res.send('<script> alert("회원 정보가 변경되었습니다."); window.location="/profile"; </script>');
+                    });
+            }
         }
     }
     catch (error) {

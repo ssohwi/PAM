@@ -1,0 +1,46 @@
+
+
+<!-- 사용자화면  -->
+<!-- 관리자메세지 더보기 클릭시 전체 글 목록표시  -->
+<% include partials/header %>
+<div class="container">
+    <h1 style="font-weight: bold;margin-bottom: 30px;">관리자메세지</h1>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item">
+        <a href="/" style="color: #78d843;">데이터 통계</a>
+        <li class="breadcrumb-item active">사용자 웹 설정</li>
+      </li>
+    </ol>
+  <div class="card mb-4"">
+    <div class="card-body">
+      <div class="table-responsive">
+        <form action="" method="post">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                  <tr>
+                    
+                    <th >제목</th>
+                      <th>작성자</th>
+                      <th>내용s</th>
+                  </tr>
+              </thead>
+              <tbody>
+             
+               <% forms.forEach( function(board){%>
+               
+                <tr> 
+                    <td><a href="./detail/<%= board.id%> "><%= board.title%></a></td>
+                    <td><%= board.author%></td>
+                    <td><%= board.detail%></td>
+                </tr>
+                <%});%>
+              </tbody>
+              
+         </table>
+         
+        </form>
+      </div>
+    </div>
+  </div>
+<% include partials/scripts %>
+

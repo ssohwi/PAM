@@ -4,18 +4,24 @@ const request = require('request');
 const mongoose = require('mongoose');
 const Trash = require('../models/trash');
 const Account = require('../models/account');
-const { signUp, login, deleteUser, profile, pwCheck } = require('../controllers/auth');
+const { signUp, login, deleteUser, profile } = require('../controllers/auth');
 const { isLoggedIn, isNotLoggedIn, isAdmin } = require('../controllers/isAuth');
-const { crawling } = require('../controllers/crawler');
+const { newsCrawling, weatherCrawling } = require('../controllers/crawler');
 
 
 router.use((req, res, next) => {
-    res.locals.user = req.user;
+    res.locals.name = req.session.name;
+    res.locals.is_admin = req.session.is_admin
     next();
 });
 
 router.get('/a', function (req, res, next) {
-
+    newsCrawling.then(aa => {
+        weatherCrawling.then(aaaa => {
+            console.log(aa);
+            console.log(aaaa);
+        })
+    });
 });
 
 router.get('/', function (req, res, next) {
@@ -117,34 +123,42 @@ router.get('/', function (req, res, next) {
             });
 
             var todayTrash = [can, glass, plastic, total];
-            crawling.then(result => res.render('index', {
-                title: 'Main',
-                name: req.session.name,
-                is_admin: req.session.is_admin,
-                article: result,
-                todayTrash: todayTrash,
-            }));
+            newsCrawling.then(news => {
+                weatherCrawling.then(weather => {
+                    res.render('index', {
+                        title: 'Main',
+                        name: req.session.name,
+                        is_admin: req.session.is_admin,
+                        article: news,
+                        todayTrash: todayTrash,
+                        weather: weather
+                    })
+                })
+            });
         });
     }
     // isNotLoggedIn
     else {
-        crawling.then(result => res.render('index', {
-            title: 'Main',
-            name: req.session.name,
-            is_admin: req.session.is_admin,
-            article: result
-        }));
+        newsCrawling.then(news => {
+            weatherCrawling.then(weather => {
+                res.render('index', {
+                    title: 'Main',
+                    article: news,
+                    weather: weather
+                })
+            })
+        });
     }
 });
 
 router.get('/login', isNotLoggedIn, function (req, res, next) {
-    res.render('login', { title: 'Login' });
+    res.render('users/login', { title: 'Login' });
 });
 
 router.get('/profile', isLoggedIn, async (req, res) => {
     try {
         const user = await Account.findOne(req.session._id);
-        res.render('profile', { title: 'Profile', user, });
+        res.render('users/profile', { title: 'Profile', user, });
     }
     catch (error) {
         console.error(error);
@@ -153,7 +167,7 @@ router.get('/profile', isLoggedIn, async (req, res) => {
 });
 
 router.get('/signup', isNotLoggedIn, function (req, res, next) {
-    res.render('signup', { title: 'Signup' });
+    res.render('users/signup', { title: 'Signup' });
 });
 
 router.get("/leave", deleteUser);
@@ -174,12 +188,12 @@ router.get('/admin', isAdmin, async (req, res, next) => {
             }
         }
     ]);
+    for (i = 0; i < trashData.length; i++) {
+        var userEmail = trashData[i]._id;
+        var user = await Account.findById(req.session._id);
+        trashData[i]._id = user.email;
+    }
     res.send(trashData);
-    // crawling.then(result => res.render('admin', {
-    //     title: 'Admin',
-    //     article: result,
-    //     trashData: trashData,
-    // }));
 });
 
 router.get('/logout', isLoggedIn, (req, res) => {

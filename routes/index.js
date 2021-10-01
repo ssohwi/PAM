@@ -25,7 +25,23 @@ router.get('/a', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-    if (isLoggedIn) {
+    if (req.session.name === undefined) {
+        var todayTrash = [0, 0, 0, 0];
+        newsCrawling.then(news => {
+            weatherCrawling.then(weather => {
+                res.render('index', {
+                    title: 'Main',
+                    article: news,
+                    weather: weather,
+                    name: req.session.name,
+                    is_admin: req.session.is_admin,
+                    todayTrash: todayTrash,
+                })
+            })
+        });
+    }
+    // LoggedIn
+    else {
         request("https://api.thingspeak.com/channels/1396062/feeds.json?results=1", async (error, response, body) => {
             if (error) {
                 console.error('thingspeakData request error:', error);
@@ -135,18 +151,6 @@ router.get('/', function (req, res, next) {
                     })
                 })
             });
-        });
-    }
-    // isNotLoggedIn
-    else {
-        newsCrawling.then(news => {
-            weatherCrawling.then(weather => {
-                res.render('index', {
-                    title: 'Main',
-                    article: news,
-                    weather: weather
-                })
-            })
         });
     }
 });

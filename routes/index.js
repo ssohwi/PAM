@@ -4,9 +4,9 @@ const request = require('request');
 const mongoose = require('mongoose');
 const Trash = require('../models/trash');
 const Account = require('../models/account');
-const { signUp, login, deleteUser, profile } = require('../controllers/auth');
-const { isLoggedIn, isNotLoggedIn, isAdmin } = require('../controllers/isAuth');
-const { newsCrawling, weatherCrawling } = require('../controllers/crawler');
+const {signUp, login, deleteUser, profile} = require('../controllers/auth');
+const {isLoggedIn, isNotLoggedIn, isAdmin} = require('../controllers/isAuth');
+const {newsCrawling, weatherCrawling} = require('../controllers/crawler');
 
 
 router.use((req, res, next) => {
@@ -15,14 +15,6 @@ router.use((req, res, next) => {
     next();
 });
 
-router.get('/a', function (req, res, next) {
-    newsCrawling.then(aa => {
-        weatherCrawling.then(aaaa => {
-            console.log(aa);
-            console.log(aaaa);
-        })
-    });
-});
 
 router.get('/', function (req, res, next) {
     if (req.session.name === undefined) {
@@ -30,7 +22,7 @@ router.get('/', function (req, res, next) {
         newsCrawling.then(news => {
             weatherCrawling.then(weather => {
                 res.render('index', {
-                    title: 'Main',
+                    title: 'PAM',
                     article: news,
                     weather: weather,
                     name: req.session.name,
@@ -47,7 +39,7 @@ router.get('/', function (req, res, next) {
                 console.error('thingspeakData request error:', error);
             }
             var userId = req.session._id;
-            var trashData = await Trash.find({ userId: userId }).sort({ "entryId": -1 });
+            var trashData = await Trash.find({userId: userId}).sort({"entryId": -1});
             var data = JSON.parse(body).feeds[0];
             var entryId = data.entry_id;
             // 저장
@@ -126,7 +118,7 @@ router.get('/', function (req, res, next) {
 
             // 출력
             let can = 0, plastic = 0, total = 0, glass = 0;
-            var trashData = await Trash.find({ userId: userId }).sort({ "entryId": -1 });
+            var trashData = await Trash.find({userId: userId}).sort({"entryId": -1});
             trashData.forEach(element => {
                 // 날짜 지우기
                 let today = new Date('2021-08-04').toLocaleDateString();
@@ -142,7 +134,7 @@ router.get('/', function (req, res, next) {
             newsCrawling.then(news => {
                 weatherCrawling.then(weather => {
                     res.render('index', {
-                        title: 'Main',
+                        title: 'PAM',
                         name: req.session.name,
                         is_admin: req.session.is_admin,
                         article: news,
@@ -156,25 +148,75 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/login', isNotLoggedIn, function (req, res, next) {
-    res.render('users/login', { title: 'Login' });
+    res.render('users/login', {title: 'Login'});
 });
 
 router.get('/profile', isLoggedIn, async (req, res) => {
     try {
         const user = await Account.findOne(req.session._id);
-        res.render('users/profile', { title: 'Profile', user, });
-    }
-    catch (error) {
+        res.render('users/profile', {title: 'Profile', user,});
+    } catch (error) {
         console.error(error);
         next(error);
     }
 });
 
 router.get('/signup', isNotLoggedIn, function (req, res, next) {
-    res.render('users/signup', { title: 'Signup' });
+    res.render('users/signup', {title: 'Signup'});
 });
 
 router.get("/leave", deleteUser);
+
+
+router.get('/data', function (req, res, next) {
+    try {
+        request("https://api.thingspeak.com/channels/1396062/feeds.json?results=1", async (error, response, body) => {
+            if (error) {
+                console.error('thingspeakData request error:', error);
+            }
+            var userId = req.session._id;
+            // 출력
+            let can = 0, plastic = 0, total = 0, glass = 0;
+            var trashData = await Trash.find({userId: userId}).sort({"entryId": -1});
+            trashData.forEach(element => {
+                // 날짜 지우기
+                let today = new Date('2021-08-04').toLocaleDateString();
+                if (element.createdAt.toLocaleDateString() == today) {
+                    can += element.can;
+                    plastic += element.plastic;
+                    total += element.total;
+                    glass += element.glass;
+                }
+            });
+
+            var todayTrash = [can, glass, plastic, total];
+            res.render('data', {
+                title: '쓰레기 배출량',
+                name: req.session.name,
+                is_admin: req.session.is_admin,
+                todayTrash: todayTrash,
+            })
+        })
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
+router.get('/news', function (req, res, next) {
+    var todayTrash = [0, 0, 0, 0];
+    newsCrawling.then(news => {
+        weatherCrawling.then(weather => {
+            res.render('news', {
+                title: '환경 뉴스',
+                article: news,
+                weather: weather,
+                name: req.session.name,
+                is_admin: req.session.is_admin,
+                todayTrash: todayTrash,
+            })
+        })
+    });
+});
 
 router.get('/admin', isAdmin, async (req, res, next) => {
 
@@ -183,12 +225,12 @@ router.get('/admin', isAdmin, async (req, res, next) => {
         {
             $group: {
                 _id: '$userId',
-                can: { $sum: '$can' },
-                glass: { $sum: '$glass' },
-                plastic: { $sum: '$plastic' },
-                total: { $sum: '$total' },
-                count: { $sum: 1 },
-                avg: { $avg: '$can' }
+                can: {$sum: '$can'},
+                glass: {$sum: '$glass'},
+                plastic: {$sum: '$plastic'},
+                total: {$sum: '$total'},
+                count: {$sum: 1},
+                avg: {$avg: '$can'}
             }
         }
     ]);

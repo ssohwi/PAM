@@ -1,0 +1,81 @@
+<div class="container-fluid px-4">
+    <h4 class="mt-4">쓰레기 배출량</h4>
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between">
+                            <span class="font-weight-bold">날씨 정보</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <% weather.forEach( function(weather){ %>
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="text-center">
+                                            <h2 class="font-weight-bold">
+                                                <%= weather.temp %>
+                                            </h2>
+                                            <span class="text-dark"><%= weather.summary %></span>
+                                        </div>
+                                        <br>
+                                        <div class="text-center row  justify-content-center">
+                                            <div class="weather-box">
+                                                미세먼지
+                                                <br>
+                                                <span class="text-success font-weight-bold"><%= weather.fine_dust %></span>
+                                            </div>
+                                            <div class="weather-box">
+                                                초 미세먼지
+                                                <br>
+                                                <span class="text-success font-weight-bold"><%= weather.ultra_fine_dust %></span>
+                                            </div>
+                                            <div class="weather-box">
+                                                자외선
+                                                <br>
+                                                <span class="text-warning font-weight-bold"><%= weather.uv_rays %></span>
+                                            </div>
+                                            <div class="weather-box">
+                                                일출
+                                                <br>
+                                                <span class="text-danger font-weight-bold"><%= weather.sun_raise %></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between">
+                            <span class="font-weight-bold">환경 뉴스</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <% article.forEach( function(item){ %>
+                                    <% var url = "http://www.hkbs.co.kr" + item.url %>
+                                    <% var title = item.title %>
+                                    <% var img = item.image_url %>
+                                    <div class="col-xl-3 col-md-6">
+
+                                        <a href=<%= url %>>
+                                            <img class="news-img" src=<%= img %>>
+                                            <span class="small text-dark"><%= title %></span>
+                                        </a>
+                                        <br>
+                                        <br>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

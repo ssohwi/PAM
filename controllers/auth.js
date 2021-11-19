@@ -21,6 +21,7 @@ const signUp = async (req, res) => {
             const user = new Account({
                 _id: new mongoose.Types.ObjectId(),
                 name: req.body.name,
+                channel: req.body.channel,
                 email: req.body.email,
                 password: crypto.createHash('sha512').update(req.body.password).digest('base64')
             });

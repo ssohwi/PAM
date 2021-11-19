@@ -38,8 +38,8 @@ app.use(session({
   resave: false, // 세션이 수정되지 않아도 항상 저장할지 확인하는 옵션
   saveUninitialized: true, // 세션이 uninitalized 상태로 미리 만들어서 저장하는지 묻는 옵션
   store: new MongoDBStore({  // 세션이 서버 메모리가 아닌 어떤 저장소에 들어갈지 정하는 옵션
-    url: "mongodb://localhost:27017/account", // 데이터베이스 url
-    databaseName: 'account', // 데이터베이스 name
+    url: "mongodb://localhost:27017/pam", // 데이터베이스 url
+    databaseName: 'pam', // 데이터베이스 name
     collection: 'sessions', // 콜렉션 이름
     ttl: 60 * 60 // 60분후 폭파
   }),

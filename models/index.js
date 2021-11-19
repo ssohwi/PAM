@@ -1,12 +1,12 @@
 // DB Connect
 const mongoose = require('mongoose');
 
-var url = "mongodb://localhost:27017/account";
+var url = "mongodb://localhost:27017/pam";
 
 const connect = () => {
     mongoose.connect(url, {
-            useNewUrlParser: true
-        },
+        useNewUrlParser: true
+    },
         (error) => {
             if (error) {
                 console.log('MongoDB connection failure!', error);
@@ -21,7 +21,7 @@ mongoose.connection.on('error', (error) => {
 });
 
 mongoose.connection.on('disconnect', () => {
-   console.error('The connection to MongoDB has been lost. Retry the connection!');
+    console.error('The connection to MongoDB has been lost. Retry the connection!');
     connect();
 });
 

@@ -20,6 +20,10 @@ const Account = new Schema({
         type: String,
         required: true,
     },
+    channel: {
+        type: String,
+        required: true,
+    },
     createdAt: {
         type: Date,
         default: Date.now,

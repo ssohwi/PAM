@@ -1,0 +1,32 @@
+<div class="container-fluid px-4">
+    <h4 class="mt-4">월별 배출량</h4>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h6><%= name %>님의 월별 쓰레기 배출량입니다.</h6>
+            <div class="row">
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">날짜</th>
+                        <th>캔</th>
+                        <th>플라스틱</th>
+                        <th>유리</th>
+                        <th>총 투입량</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% monthlyTrash.forEach( function(item){ %>
+                        <tr class="btn-light monthlyRow">
+                            <th scope="row"><%= item._id.year %>-<%= item._id.month %></th>
+                            <td><%= item.can %></td>
+                            <td><%= item.plastic %></td>
+                            <td><%= item.glass %></td>
+                            <td><%= item.total %></td>
+                        </tr>
+                    <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

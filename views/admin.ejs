@@ -1,47 +1,78 @@
 <div class="container-fluid px-4">
     <h4 class="mt-4">admin</h4>
     <div class="card mb-4">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a type="button" class="btn btn-success tab" href='/admin?page=1&tab=today'>일</a>
+            <a type="button" class="btn btn-success tab" href='/admin?page=1&tab=week'>주</a>
+            <a type="button" class="btn btn-success tab" href='/admin?page=1&tab=month'>월</a>
+            <a type="button" class="btn btn-success tab"  href='/admin?page=1&tab=all'>전체</a>
+        </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-xl-12">
-                    <div class="card mb-4">
-                        <div class="card-header d-flex justify-content-between">
-                            <span class="font-weight-bold">data</span>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <table class="table">
-                                    <thead class="thead-dark">
-                                      <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">이메일</th>
-                                        <th scope="col">총 투입량 <button class="btn"><i class="fas fa-sort"></i></button></th>
-                                        <th scope="col">캔 <button class="btn"><i class="fas fa-sort"></i></button></th>
-                                        <th scope="col">플라스틱 <button class="btn"><i class="fas fa-sort"></i></button></th>
-                                        <th scope="col">유리 <button class="btn"><i class="fas fa-sort"></i></button></th>
-                                        <th scope="col">super</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% trashData.forEach( function(item, index){ %>
-                                            <a href="#">
-                                                <tr>
-                                                    <th scope="row"><%= index + 1 %></th>
-                                                    <td><%= item.email %></td>
-                                                    <td><%= item.total %></td>
-                                                    <td><%= item.can %></td>
-                                                    <td><%= item.plastic %></td>
-                                                    <td><%= item.glass %></td>
-                                                    <td><%= item.super %></td>
-                                                </tr>
-                                            </a>
-                                        <% }) %>
-                                    </tbody>
-                                  </table>
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">No</th>
+                        <th>이메일</th>
+                        <th>총 투입량
+                            <button class="btn" id="sortTotal" value="1"><i class="fas fa-sort"></i></button>
+                        </th>
+                        <th>캔
+                            <button class="btn" id="sortCan" value="1"><i class="fas fa-sort"></i></button>
+                        </th>
+                        <th>플라스틱
+                            <button class="btn" id="sortPlastic" value="1"><i class="fas fa-sort"></i></button>
+                        </th>
+                        <th>유리
+                            <button class="btn" id="sortGlass" value="1"><i class="fas fa-sort"></i></button>
+                        </th>
+                        <th>super</th>
+                    </tr>
+                    </thead>
+                    <tbody id="trashDatas">
+                    <% trashData.forEach( function(item, index){ %>
+                        <tr onclick="location.href='/detail?id=<%= item._id %>'" class="btn-light">
+                            <th scope="row"><%= index + 1 %></th>
+                            <td><%= item.email %></td>
+                            <td><%= item.total %></td>
+                            <td><%= item.can %></td>
+                            <td><%= item.plastic %></td>
+                            <td><%= item.glass %></td>
+                            <td><%= item.super %></td>
+                        </tr>
+                    <% }) %>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="7">
+                            <div class="dataTables_paginate paging_simple_numbers">
+                                <ul class="pagination justify-content-end">
+                                    <% if (page > 1){ %>
+                                        <li class="paginate_button page-item previous">
+                                            <a href="/admin?page=<%= page * 1 - 1 %>"
+                                               class="page-link">Previous</a>
+                                        </li>
+                                    <% } %>
+                                    <% for (var j = start_page; j < start_page + 10; j++){ %>
+                                        <% if (j <= max_page){ %>
+                                            <li class="paginate_button page-item">
+                                                <a href="/admin?page=<%= j %>"
+                                                   class="page-link"><%= j %></a>
+                                            </li>
+                                        <% } %>
+                                    <% } %>
+                                    <% if (page < max_page){ %>
+                                        <li class="paginate_button page-item next">
+                                            <a href="/admin?page=<%= page * 1 + 1 %>"
+                                               class="page-link">Next</a>
+                                        </li>
+                                    <% } %>
+                                </ul>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
     </div>

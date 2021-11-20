@@ -1,0 +1,34 @@
+<div class="container-fluid px-4">
+    <h4 class="mt-4">이번주 배출량</h4>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h6><%= name %>님의 이번주 쓰레기 배출량입니다.</h6>
+            <div class="row">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body">캔 <%= weekTrash[0] %>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body">유리 <%= weekTrash[1] %>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body">플라스틱 <%= weekTrash[2] %>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-secondary text-white mb-4">
+                        <div class="card-body">쓰레기투입 총합계 <%= weekTrash[3] %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

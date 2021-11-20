@@ -1,0 +1,58 @@
+<div class="container-fluid px-4">
+    <h4 class="mt-4">랭킹</h4>
+    <div class="card mb-4">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a type="button" class="btn btn-success tab" href='/ranking?tab=today'>일</a>
+            <a type="button" class="btn btn-success tab" href='/ranking?tab=week'>주</a>
+            <a type="button" class="btn btn-success tab" href='/ranking?tab=month'>월</a>
+            <a type="button" class="btn btn-success tab"  href='/ranking?tab=all'>전체</a>
+        </div>
+        <div class="card-body">
+            <% if(rank){ %>
+                <h6><%= name %>님의 쓰레기 배출량 순위는 <%= rank %>위 입니다.</h6>
+            <% } else { %>
+                <h6><%= name %>님의 쓰레기 배출 데이터가 존재하지 않습니다.</h6>
+            <% } %>
+            <div class="row justify-content-center">
+                <% if(rankingData.length !== 0) { %>
+                    <table class="table">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">등수</th>
+                            <th>아이디</th>
+                            <th>캔</th>
+                            <th>플라스틱</th>
+                            <th>유리</th>
+                            <th>총 투입량</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% rankingData.forEach( function(item, index){ %>
+                            <tr class="">
+                                <th scope="row"><%= index + 1 %></th>
+                                <td><%= item.email %></td>
+                                <td><%= item.can %></td>
+                                <td><%= item.plastic %></td>
+                                <td><%= item.glass %></td>
+                                <td><%= item.total %></td>
+                            </tr>
+                        <% }) %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <div class="text-center">
+                        <br>
+                        <br>
+                        <div>
+                            <h1 class="text-secondary"><i class="fas fa-trash"></i></h1>
+                        </div>
+                        <div>
+                            <sapn class="text-secondary">쓰레기 데이터가 존재하지 않습니다!</sapn>
+                        </div>
+                    </div>
+                <% } %>
+
+            </div>
+        </div>
+    </div>
+</div>

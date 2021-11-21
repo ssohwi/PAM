@@ -68,7 +68,7 @@ router.get('/', async (req, res, next) => {
 
                                 const trash = new Trash({
                                     _id: new mongoose.Types.ObjectId(),
-                                    userId: userId,
+                                    userId: mongoose.Types.ObjectId(userId),
                                     entryId: entryId,
                                     can: canCnt,
                                     glass: glassCnt,
@@ -102,7 +102,7 @@ router.get('/', async (req, res, next) => {
 
                                 const trash = new Trash({
                                     _id: new mongoose.Types.ObjectId(),
-                                    userId: userId,
+                                    userId: mongoose.Types.ObjectId(userId),
                                     entryId: entryId,
                                     can: canCnt,
                                     glass: glassCnt,

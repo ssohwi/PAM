@@ -229,7 +229,7 @@ router.get('/week', isLoggedIn, async (req, res, next) => {
 router.get('/month', isLoggedIn, async (req, res, next) => {
 
     var userId = req.session._id;
-    var trashData = await Trash.find({userId: userId}).sort({"entryId": -1});
+    var trashData = await Trash.find({n}).sort({"entryId": -1});
     // 금월
     let monthCan = 0, monthPlastic = 0, monthTotal = 0, monthGlass = 0;
     const month = moment().startOf('month').subtract(1, 'd').format('YYYY-MM-DD');

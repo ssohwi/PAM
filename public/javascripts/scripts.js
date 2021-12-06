@@ -54,12 +54,13 @@
             if (result) {
                 var dayOfMonthTrash = JSON.parse(result).dayOfMonthTrash;
                 dayOfMonthTrash.forEach(function (data) {
+                    var total =parseInt(data.can)+parseInt(data.plastic)+parseInt(data.glass);
                     var tr = $("<tr class='dayOfMonthRow'>" +
                         "<th>" + data._id.year + "-" + data._id.month + "-" + data._id.day + "</th>" +
                         "<td>" + data.can + "</td>" +
                         "<td>" + data.plastic + "</td>" +
                         "<td>" + data.glass + "</td>" +
-                        "<td>" + data.total + "</td>" +
+                        "<td>" + total + "</td>" +
                         "</tr>");
                     monthlyRow.after(tr);
                 });
@@ -85,9 +86,10 @@
                 var trashData = JSON.parse(result).trashData;
                 $('#trashDatas').empty();
                 trashData.forEach(function (item, index) {
+                    var total = parseInt(item.glass)+parseInt(item.can)+parseInt(item.plastic);
                     var tr = $("<tr onclick=\"location.href='/detail?id=" + item._id + "'\" class=\"btn-light\"><th scope=\"row\">" +
                         (index+1) + "</th><td>" + item.email + "</td>" +
-                        "<td>" + item.total + "</td>" +
+                        "<td>" + total + "</td>" +
                         "<td>" + item.can + "</td>" +
                         "<td>" + item.plastic + "</td>" +
                         "<td>" + item.glass + "</td>" +
@@ -116,9 +118,10 @@
                 var trashData = JSON.parse(result).trashData;
                 $('#trashDatas').empty();
                 trashData.forEach(function (item, index) {
+                    var total = parseInt(item.glass)+parseInt(item.can)+parseInt(item.plastic);
                     var tr = $("<tr onclick=\"location.href='/detail?id=" + item._id + "'\" class=\"btn-light\"><th scope=\"row\">" +
                         (index+1) + "</th><td>" + item.email + "</td>" +
-                        "<td>" + item.total + "</td>" +
+                        "<td>" + total + "</td>" +
                         "<td>" + item.can + "</td>" +
                         "<td>" + item.plastic + "</td>" +
                         "<td>" + item.glass + "</td>" +
@@ -147,9 +150,10 @@
                 var trashData = JSON.parse(result).trashData;
                 $('#trashDatas').empty();
                 trashData.forEach(function (item, index) {
+                    var total = parseInt(item.glass)+parseInt(item.can)+parseInt(item.plastic);
                     var tr = $("<tr onclick=\"location.href='/detail?id=" + item._id + "'\" class=\"btn-light\"><th scope=\"row\">" +
                         (index+1) + "</th><td>" + item.email + "</td>" +
-                        "<td>" + item.total + "</td>" +
+                        "<td>" + total + "</td>" +
                         "<td>" + item.can + "</td>" +
                         "<td>" + item.plastic + "</td>" +
                         "<td>" + item.glass + "</td>" +
@@ -178,9 +182,10 @@
                 var trashData = JSON.parse(result).trashData;
                 $('#trashDatas').empty();
                 trashData.forEach(function (item, index) {
+                    var total = parseInt(item.glass)+parseInt(item.can)+parseInt(item.plastic);
                     var tr = $("<tr onclick=\"location.href='/detail?id=" + item._id + "'\" class=\"btn-light\"><th scope=\"row\">" +
                         (index+1) + "</th><td>" + item.email + "</td>" +
-                        "<td>" + item.total + "</td>" +
+                        "<td>" + total + "</td>" +
                         "<td>" + item.can + "</td>" +
                         "<td>" + item.plastic + "</td>" +
                         "<td>" + item.glass + "</td>" +

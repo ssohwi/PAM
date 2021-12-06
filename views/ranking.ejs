@@ -1,5 +1,8 @@
 <div class="container-fluid px-4">
-    <h4 class="mt-4">랭킹</h4>
+    <div class="card mt-4"></div>
+    <div class="card-header d-flex justify-content-between">    </div>
+    <h2 class="font-weight-bold bg-light pt-3 pb-3 pl-3 rounded shadow-sm mb-4">랭킹</h2>
+    <div class="card mb-4">
     <div class="card mb-4">
         <div class="btn-group" role="group" aria-label="Basic example">
             <a type="button" class="btn btn-success tab" href='/ranking?tab=today'>일</a>
@@ -9,13 +12,13 @@
         </div>
         <div class="card-body">
             <% if(rank){ %>
-                <h6><%= name %>님의 쓰레기 배출량 순위는 <%= rank %>위 입니다.</h6>
+                <h6 class="mb-2 text-primary text-center font-weight-bold"><%= name %>님의 쓰레기 배출량 순위는 <%= rank %>위 입니다.</h6>
             <% } else { %>
-                <h6><%= name %>님의 쓰레기 배출 데이터가 존재하지 않습니다.</h6>
+                <h6 class="mb-2 text-danger text-center font-weight-bold mb-4"><%= name %>님의 재활용품 배출 데이터가<br>존재하지 않습니다.</h6>
             <% } %>
             <div class="row justify-content-center">
                 <% if(rankingData.length !== 0) { %>
-                    <table class="table">
+                    <table class="table rounded shadow-sm">
                         <thead class="thead-light">
                         <tr>
                             <th scope="col">등수</th>

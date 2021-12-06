@@ -1,83 +1,53 @@
 <div class="container-fluid px-4">
-    <h4 class="mt-4">쓰레기 배출량</h4>
+    <div class="card-header mt-4 d-flex justify-content-between">
+        <span class="font-weight-bold h3 mt-4 text-dark ">나의 재활용품 배출량은?</span>
+    </div>
     <div class="card mb-4">
         <div class="card-body">
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-warning text-white mb-4">
-                                        <div class="card-body">캔 <%= todayTrash[0] %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-warning text-white mb-4">
-                                        <div class="card-body">유리 <%= todayTrash[1] %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-warning text-white mb-4">
-                                        <div class="card-body">플라스틱 <%= todayTrash[2] %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-primary text-white mb-4">
-                                        <div class="card-body">쓰레기투입 총합계 <%= todayTrash[3] %>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
 
-                        <div class="card-body">
-                            <div class="row overflow-hidden">
-                                <div class="col-md-6 graph">
-                                    <canvas id="todayChart"></canvas>
+                            <div class="mb-4 mr-2 shadow-sm" style="padding-top: 8%; border-radius: 30px; background-color: rgb(241, 252, 239)">
+                                <span class="font-weight-bold h5 ml-4 mb-4 text-dark">Today<br></span> 
+                                <span class="font-weight-bold h1 ml-4 text-dark">15</span> 
+                                    <!-- <%= todayTrash[0] + todayTrash[1] + todayTrash[2] %> -->
+                                <!-- <%= todayTrash[3] %> -->
+                                    <a href="/week">
+                                    <div class="row overflow-hidden">
+                                        <div class="col-md-6 graph mb-4 ">
+                                            <canvas id="todayChart" class="ml-2"></canvas>
+                                        </div>
+                                    </div>
+                                     </a>
                                 </div>
-                                <div class="col-md-6 graph">
-                                    <canvas id="monthChart"></canvas>
+                                
+                                <div class="mt-4 mr-2 shadow-sm" style="padding-top: 8%; border-radius: 30px; background-color: rgb(241, 252, 239)">
+                                    <span class="font-weight-bold h5 ml-4 mb-4 text-dark">Month<br></span> 
+                                    <span class="font-weight-bold h1 ml-4 text-dark">67</span> 
+                                <a href="/month">
+                                    <div class="row overflow-hidden">
+                                        <div class="col-md-6 graph mb-4 mt-4">
+                                            <canvas id="monthChart" class="ml-2"></canvas>
+                                        </div>
+                                    </div>
+                                </a>
                                 </div>
-                            </div>
+                        
+
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="row overflow-hidden">
-                                <div class="col-xl-3 col-md-6">
-                                    <iframe class="thingspeak"
-                                            src="https://thingspeak.com/channels/1396062/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&sum=daily&type=line"></iframe>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <iframe class="thingspeak"
-                                            src="https://thingspeak.com/channels/1396062/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&sum=daily&type=line"></iframe>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <iframe class="thingspeak"
-                                            src="https://thingspeak.com/channels/1396062/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&sum=daily&type=line"></iframe>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <iframe class="thingspeak"
-                                            src="https://thingspeak.com/channels/1396062/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&sum=daily&type=line"></iframe>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
-</div>
 
+    
+<% if (name) { %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <!-- todayChart -->
 <script>
@@ -85,31 +55,167 @@
     var todayChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["총합계", "캔", "유리", "플라스틱"],
+            labels: ["캔", "유리", "플라스틱"],
             datasets: [{
                 label: '오늘의 쓰레기 배출량',
-                data: [<%= todayTrash[3] %>, <%= todayTrash[0] %>, <%= todayTrash[1] %>, <%= todayTrash[2] %>],
+                // data: [<%= todayTrash[3] %>, <%= todayTrash[0] %>, <%= todayTrash[1] %>, <%= todayTrash[2] %>],
+                data: [7, 3, 5],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)'
+                    // 'rgba(255, 99, 132, 0.2)',
+                    '#FF8500',
+                    '#FF8500',
+                    '#FF8500'
                 ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)'
-                ],
-                borderWidth: 1
+                borderWidth: 0
             }]
         },
         options: {
+            legend: {
+                display: false,
+				labels: {
+					// fontColor: "black",
+					// fontSize: 18,
+                    // fontFamily: '나눔바른고딕'
+				}
+			},
+            tooltips: {
+				enabled: false
+			},
+			hover: {
+				animationDuration: 0
+			},
+            animation: {
+                duration: 1,
+                onComplete: function () {
+                    var chartInstance = this.chart, ctx = chartInstance.ctx;
+                    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize=24, Chart.defaults.global.defaultFontStyle='bold', Chart.defaults.global.defaultFontFamily);
+                    ctx.fillStyle = '#548235';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'bottom';
+
+                    this.data.datasets.forEach(function (dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        meta.data.forEach(function (bar, index) {
+                            var data = dataset.data[index];                     
+                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                        });
+                    });
+                }
+             },
             maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
             scales: {
+				xAxes: [{
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+					ticks:{
+						// fontColor : 'rgba(12, 13, 13, 1)',
+                        fontColor : 'black',
+						fontSize : 20,
+                        fontStyle : 'bold'
+                        // fontFamily: 'Noto Sans CJK KR Regular'
+                        // fontFamily: '나눔바른고딕'
+					}}],
                 yAxes: [{
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
                     ticks: {
-                        beginAtZero: true
+                        min: 0,
+                        max: 20,
+                        stepSize: 1,
+                        display: false
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+
+
+
+<!-- monthChart -->
+<!-- <script type="text/javascript" charset="utf-8" src="js/Chart.roundedBarCharts.min.js"></script> -->
+<script>
+    var ctx = document.getElementById("monthChart").getContext('2d');
+    var todayChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["캔", "유리", "플라스틱"],
+            datasets: [{
+                // data: [<%= todayTrash[3] %>, <%= todayTrash[0] %>, <%= todayTrash[1] %>, <%= todayTrash[2] %>],
+                label: '이달의 쓰레기 배출량',
+                data: [24, 10, 33],
+                backgroundColor: [
+                    // 'rgba(255, 99, 132, 0.2)',
+                    '#00A5FF',
+                    '#00A5FF',
+                    '#00A5FF'
+                ],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            legend: {
+                display: false,
+				labels: {
+					// fontColor: "black",
+					// fontSize: 18,
+                    // fontFamily: '나눔바른고딕'
+				}
+			},
+            tooltips: {
+				enabled: false
+			},
+			hover: {
+				animationDuration: 0
+			},
+            animation: {
+                duration: 1,
+                onComplete: function () {
+                    var chartInstance = this.chart, ctx = chartInstance.ctx;
+                    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize=24, Chart.defaults.global.defaultFontStyle='bold', Chart.defaults.global.defaultFontFamily);
+                    ctx.fillStyle = '#548235';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'bottom';
+
+                    this.data.datasets.forEach(function (dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        meta.data.forEach(function (bar, index) {
+                            var data = dataset.data[index];                     
+                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                        });
+                    });
+                }
+             },
+            maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+            scales: {
+				xAxes: [{
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+					ticks:{
+						// fontColor : 'rgba(12, 13, 13, 1)',
+                        fontColor : 'black',
+						fontSize : 20,
+                        fontStyle : 'bold'
+                        // fontFamily: 'Noto Sans CJK KR Regular'
+                        // fontFamily: '나눔바른고딕'
+					}}],
+                yAxes: [{
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        min: 0,
+                        max: 50,
+                        stepSize: 1,
+                        display: false
                     }
                 }]
             }
@@ -118,6 +224,7 @@
 </script>
 
 <!-- monthChart -->
+<!-- 
 <script>
     var ctx = document.getElementById("monthChart").getContext('2d');
     var monthChart = new Chart(ctx, {
@@ -154,3 +261,6 @@
         }
     });
 </script>
+-->
+
+<% } %>

@@ -1,21 +1,27 @@
 <% if (name) { %>
     <div class="row">
-        <div class="col-xl-12">
+        <div class="col-xl-12" style="margin-bottom: -50px;">
             <div class="card mb-4">
-                <div class="card-header d-flex justify-content-between">
-                    <span class="font-weight-bold">쓰레기 배출량</span>
-                    <a href="./data" class=""><i class="fas fa-arrow-right"></i></a>
+                <div class="card-header mt-4 d-flex justify-content-between">
+                    <span class="font-weight-bold h3 ml-3 mt-4 text-dark ">재활용품 배출량</span>
+                    <a href="./data" class=""><i class="h2 fas fa-arrow-right text-success mr-4 mt-4"></i></a>
                 </div>
+
                 <div class="card-body">
-                    <div class="row overflow-hidden">
-                        <div class="col-md-6 graph">
-                            <canvas id="todayChart"></canvas>
-                        </div>
-                        <div class="col-md-6 graph">
-                            <canvas id="monthChart"></canvas>
+
+                    <div class=" mr-2 shadow-sm" style="padding-top: 8%; border-radius: 30px; background-color: rgb(241, 252, 239)">
+                    <span class="font-weight-bold h5 ml-4 mb-4 text-dark">오늘은 총 <%= todayTrash[2] %>개를 배출하였습니다!</span> 
+                    <!-- <%= todayTrash[3] %> -->
+                        <div class="row overflow-hidden justify-content-center">
+                            <div class="col-md-6 graph mb-4 mt-4 ">
+                                <canvas id="todayChart" class="ml-2"></canvas>
+                            </div>
                         </div>
                     </div>
+                    
+
                 </div>
+
             </div>
         </div>
     </div>
@@ -24,11 +30,7 @@
 
 <div class="row">
     <div class="col-xl-12">
-        <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between">
-                <span class="font-weight-bold">날씨 정보</span>
-                <a href="./news" class=""><i class="fas fa-arrow-right"></i></a>
-            </div>
+        <div class="card mb-4" style="margin-top: 15%;">
             <div class="card-body">
                 <div class="row justify-content-center">
                     <% weather.forEach( function(weather){ %>
@@ -37,25 +39,25 @@
                                 <h2 class="font-weight-bold">
                                     <%= weather.temp %>
                                 </h2>
-                                <span class="text-dark font-weight-bold">
+                                <span class="text-dark font-weight-bold" style="font-size: 24px;">
                                             <%= weather.summary %>
                                 </span>
                             </div>
                             <br>
                             <div class="text-center">
-                                <span class="text-muted">
+                                <span class="text-muted font-weight-bold">
                                     <%= weather.summary_hum %>
                                 </span>
                                 <span class="text-dark font-weight-bold">
                                     <%= weather.humidity %>
                                 </span> &nbsp;
-                                <span class="text-muted">
+                                <span class="text-muted font-weight-bold">
                                     <%= weather.summary_win %>
                                 </span>
                                 <span class="text-dark font-weight-bold">
                                     <%= weather.wind %>
                                 </span> &nbsp;
-                                <span class="text-muted">
+                                <span class="text-muted font-weight-bold">
                                     <%= weather.summary_sen %>
                                 </span>
                                 <span class="text-dark font-weight-bold">
@@ -64,24 +66,21 @@
                             </div>
                             <br>
                             <div class="text-center row  justify-content-center">
-                                <div class="weather-box">
+                                <div class="weather-box shadow-sm font-weight-bold">
                                     미세먼지
-                                    <br>
-                                    <span class="text-success font-weight-bold">
+                                    <span class="ml-4 text-success font-weight-bold">
                                         <%= weather.fine_dust %>
                                     </span>
                                 </div>
-                                <div class="weather-box">
+                                <div class="weather-box shadow-sm font-weight-bold">
                                     초 미세먼지
-                                    <br>
-                                    <span class="text-success font-weight-bold">
+                                    <span class="ml-4 text-success font-weight-bold">
                                         <%= weather.ultra_fine_dust %>
                                     </span>
                                 </div>
-                                <div class="weather-box">
+                                <div class="weather-box shadow-sm font-weight-bold">
                                     자외선
-                                    <br>
-                                    <span class="text-warning font-weight-bold">
+                                    <span class="ml-4 text-warning font-weight-bold">
                                         <%= weather.uv_rays %>
                                     </span>
                                 </div>
@@ -96,34 +95,38 @@
 
 <div class="row">
     <div class="col-xl-12">
-        <div class="card mb-4">
+        <div class="card mb-4 mt-4">
             <div class="card-header d-flex justify-content-between">
-                <span class="font-weight-bold">환경 뉴스</span>
-                <a href="./news" class=""><i class="fas fa-arrow-right"></i></a>
+                <span class="font-weight-bold h3 ml-3 mt-4 text-dark ">환경 뉴스</span>
+                <a href="./data" class=""><i class="h2 fas fa-arrow-right text-success mr-4 mt-4"></i></a>
             </div>
+
+            
             <div class="card-body">
                 <div class="row">
-                    <% article.forEach( function(item){ %>
-                        <% var url = "http://www.hkbs.co.kr" + item.url %>
-                        <% var title = item.title %>
-                        <% var img = item.image_url %>
-                        <div class="col-xl-3 col-md-6">
-
-                            <a href=<%= url %>>
-                                <img class="news-img" src=<%= img %>>
-                                <span class="small text-dark">
-                                    <%= title %>
-                                </span>
-                            </a>
-                            <br>
-                            <br>
-                        </div>
-                    <% }) %>
+                    <div class="col-xl-12 col-md-6 mr-4">
+                    <table class="table border-0">
+                        <% article.forEach( function(item){ %>
+                            <% var url = "http://www.hkbs.co.kr" + item.url %>
+                            <% var title = item.title %>
+                            <% var img = item.image_url %>
+                        <tbody>
+                          <tr>
+                             <td> <a href=<%= url %>> <img class="news-img" style="width: 150px; height: 150px;" src=<%= img %>></a></td>
+                             <td class="h5"><%= title %></td>
+                          </tr>
+                         <% }) %>
+                        </tbody> 
+                       </table>
+                </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
+
+
 
 
 <% if (name) { %>
@@ -134,31 +137,78 @@
     var todayChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["총합계", "캔", "유리", "플라스틱"],
+            labels: ["캔", "유리", "플라스틱"],
             datasets: [{
-                label: '오늘의 쓰레기 배출량',
-                data: [<%= todayTrash[3] %>, <%= todayTrash[0] %>, <%= todayTrash[1] %>, <%= todayTrash[2] %>],
+                label: '오늘의 재활용품 배출량',
+                data: [<%= todayTrash[0] %>, <%= todayTrash[3] %>, <%= todayTrash[1] %>, <%= todayTrash[2] %>],
+                // data: [7, 3, 5],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)'
+                    // 'rgba(255, 99, 132, 0.2)',
+                    '#FF8500',
+                    '#FF8500',
+                    '#FF8500'
                 ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)'
-                ],
-                borderWidth: 1
+                borderWidth: 0
             }]
         },
         options: {
+            legend: {
+                display: false,
+				labels: {
+					// fontColor: "black",
+					// fontSize: 18,
+                    // fontFamily: '나눔바른고딕'
+				}
+			},
+            tooltips: {
+				enabled: false
+			},
+			hover: {
+				animationDuration: 0
+			},
+            animation: {
+                duration: 1,
+                onComplete: function () {
+                    var chartInstance = this.chart, ctx = chartInstance.ctx;
+                    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize=24, Chart.defaults.global.defaultFontStyle='bold', Chart.defaults.global.defaultFontFamily);
+                    ctx.fillStyle = '#548235';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'bottom';
+
+                    this.data.datasets.forEach(function (dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        meta.data.forEach(function (bar, index) {
+                            var data = dataset.data[index];                     
+                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                        });
+                    });
+                }
+             },
             maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
             scales: {
+				xAxes: [{
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+					ticks:{
+						// fontColor : 'rgba(12, 13, 13, 1)',
+                        fontColor : 'black',
+						fontSize : 20,
+                        fontStyle : 'bold'
+                        // fontFamily: 'Noto Sans CJK KR Regular'
+                        // fontFamily: '나눔바른고딕'
+					}}],
                 yAxes: [{
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
                     ticks: {
-                        beginAtZero: true
+                        min: 0,
+                        max: 20,
+                        stepSize: 1,
+                        display: false
                     }
                 }]
             }
@@ -166,41 +216,6 @@
     });
 </script>
 
-<!-- monthChart -->
-<script>
-    var ctx = document.getElementById("monthChart").getContext('2d');
-    var monthChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["총합계", "캔", "유리", "플라스틱"],
-            datasets: [{
-                label: '이달의 쓰레기 배출량',
-                data: [<%= weekTrash[3] %>, <%= weekTrash[0] %>, <%= weekTrash[1] %>, <%= weekTrash[2] %>],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-</script>
+
+
 <% } %>

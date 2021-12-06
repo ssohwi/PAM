@@ -17,7 +17,7 @@
 </head>
 
 <body class="sb-nav-fixed">
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark justify-content-between">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark justify-content-between shadow-sm" style="height:80px;">
     <a class="" href="/">
         <img class="logo" src="images/pam_logo2.png"/>
     </a>
@@ -34,9 +34,9 @@
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-user fa-fw"></i>
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="/profile">사용자 정보</a>
-                        <a class="dropdown-item" href="/logout">로그아웃</a>
+                    <div class="dropdown-menu mt-3" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item font-weight-bold" href="/profile">사용자 정보</a>
+                        <a class="dropdown-item font-weight-bold" href="/logout">로그아웃</a>
                     </div>
                 </div>
             </div>
@@ -45,24 +45,28 @@
 </nav>
 <div id="layoutSidenav">
     <div id="layoutSidenav_nav">
-        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <nav class="sb-sidenav bg-light accordion shadow" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <% if (name) { %>
                         <% if (is_admin) { %>
-                            <div class="sb-sidenav-menu-heading">Admin menu</div>
-                            <a class="nav-link" href="/admin?page=1&tab=today"><i class="fas fa-user-lock"></i> &nbsp;관리자</a>
-                            <div class="sb-sidenav-menu-heading">User menu</div>
-                            <a class="nav-link" href="/week"><i class="fas fa-trash"></i> &nbsp;이번주 배출량</a>
-                            <a class="nav-link" href="/month"><i class="fas fa-trash"></i> &nbsp;이번달 배출량</a>
-                            <a class="nav-link" href="/monthly"><i class="fas fa-trash"></i> &nbsp;월별 배출량</a>
-                            <a class="nav-link" href="/ranking?tab=today"><i class="fas fa-award"></i> &nbsp;랭킹</a>
+                            <div class="sb-sidenav-menu-heading mt-4"><h6 class="font-weight-bold text-muted">관리자 메뉴</h6></div>
+                            <a class="nav-link text-dark font-weight-bold" href="/admin?page=1&tab=today"><i class="fas fa-user-lock text-success"></i> &nbsp;&nbsp;관리자</a>
+                            <div class="sb-sidenav-menu-heading"><h6 class="font-weight-bold text-muted">사용자 메뉴</h6></div>
+                            <a class="nav-link text-dark font-weight-bold" href="/week"><i class="fas fa-trash text-success"></i> &nbsp;&nbsp;이번주 배출량</a>
+                            <a class="nav-link text-dark font-weight-bold" href="/month"><i class="fas fa-trash text-success"></i> &nbsp;&nbsp;이번달 배출량</a>
+                            <a class="nav-link text-dark font-weight-bold" href="/monthly"><i class="fas fa-trash text-success"></i> &nbsp;&nbsp;월별 배출량</a>
+                            <a class="nav-link text-dark font-weight-bold" href="/ranking?tab=today"><i class="fas fa-award text-success"></i> &nbsp;&nbsp;랭킹</a>
+                            <div class="sb-sidenav-menu-heading mt-4"><h6 class="font-weight-bold text-muted">재단 정보</h6></div>
+                            <a class="nav-link text-dark font-weight-bold" href="/envi"><i class="fab fa-envira text-success "></i> &nbsp;&nbsp;환경 재단</a>
                         <% } else { %>
-                            <div class="sb-sidenav-menu-heading">User menu</div>
-                            <a class="nav-link" href="/week"><i class="fas fa-trash"></i> &nbsp;이번주 배출량</a>
-                            <a class="nav-link" href="/month"><i class="fas fa-trash"></i> &nbsp;이번달 배출량</a>
-                            <a class="nav-link" href="/monthly"><i class="fas fa-trash"></i> &nbsp;월별 배출량</a>
-                            <a class="nav-link" href="/ranking?tab=today"><i class="fas fa-award"></i> &nbsp;랭킹</a>
+                            <div class="sb-sidenav-menu-heading mt-4"><h6 class="font-weight-bold text-muted">나의 재활용품 배출량</h3></div>
+                            <a class="nav-link text-dark font-weight-bold" href="/week"><i class="fas fa-trash text-success"></i> &nbsp;&nbsp;이번주 배출량</a>
+                            <a class="nav-link text-dark font-weight-bold" href="/month"><i class="fas fa-trash text-success"></i> &nbsp;&nbsp;이번달 배출량</a>
+                            <a class="nav-link text-dark font-weight-bold" href="/monthly"><i class="fas fa-trash text-success"></i> &nbsp;&nbsp;월별 배출량</a>
+                            <a class="nav-link text-dark font-weight-bold" href="/ranking?tab=today"><i class="fas fa-award text-success"></i> &nbsp;&nbsp;랭킹</a>
+                            <div class="sb-sidenav-menu-heading mt-4"><h6 class="font-weight-bold text-muted">재단 정보</h6></div>
+                            <a class="nav-link text-dark font-weight-bold" href="/envi"><i class="fab fa-envira text-success"></i> &nbsp;&nbsp;환경 재단</a>
                         <% } %>
                     <% } %>
                 </div>

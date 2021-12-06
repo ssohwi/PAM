@@ -1,128 +1,124 @@
 <div class="container-fluid px-4">
-    <h4 class="mt-4"><i class="fas fa-user"></i> &nbsp; <%= email %></h4>
+    <h4 class="mb-4" style="margin-top: 50px;"><i class="fas fa-user"></i> &nbsp; <%= email %></h4>
+    <h5 class="font-weight-bold bg-light pt-3 pb-3 pl-3 rounded shadow-sm">오늘의 배출량</h5>
     <div class="card mb-4">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h6>오늘의 쓰레기</h6>
-                            <div class="row">
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-danger text-white mb-4">
-                                        <div class="card-body">캔 <%= todayTrash[0] %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-danger text-white mb-4">
-                                        <div class="card-body">유리 <%= todayTrash[1] %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-danger text-white mb-4">
-                                        <div class="card-body">플라스틱 <%= todayTrash[2] %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-secondary text-white mb-4">
-                                        <div class="card-body">쓰레기투입 총합계 <%= todayTrash[3] %>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <h6>이번주 쓰레기</h6>
-                            <div class="row">
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-warning text-white mb-4">
-                                        <div class="card-body">캔 <%= weekTrash[0] %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-warning text-white mb-4">
-                                        <div class="card-body">유리 <%= weekTrash[1] %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-warning text-white mb-4">
-                                        <div class="card-body">플라스틱 <%= weekTrash[2] %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-secondary text-white mb-4">
-                                        <div class="card-body">쓰레기투입 총합계 <%= weekTrash[3] %>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <h6>이번달 쓰레기</h6>
-                            <div class="row">
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-primary text-white mb-4">
-                                        <div class="card-body">캔 <%= monthTrash[0] %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-primary text-white mb-4">
-                                        <div class="card-body">유리 <%= monthTrash[1] %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-primary text-white mb-4">
-                                        <div class="card-body">플라스틱 <%= monthTrash[2] %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="card bg-secondary text-white mb-4">
-                                        <div class="card-body">쓰레기투입 총합계 <%= monthTrash[3] %>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="row">
-                                <table class="table">
-                                    <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">날짜</th>
-                                        <th>캔</th>
-                                        <th>플라스틱</th>
-                                        <th>유리</th>
-                                        <th>총 투입량</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <% monthlyTrash.forEach( function(item){ %>
-                                        <tr class="btn-light monthlyRow">
-                                            <th scope="row"><%= item._id.year %>-<%= item._id.month %></th>
-                                            <td><%= item.can %></td>
-                                            <td><%= item.plastic %></td>
-                                            <td><%= item.glass %></td>
-                                            <td><%= item.total %></td>
-                                        </tr>
-                                    <% }) %>
-                                    </tbody>
-                                </table>
-                            </div>
+        <div class="card-body" style="margin-top: -20px;">
+            <div class="row  mt-4">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-danger text-white mb-4">
+                        <div class="card-body">캔 <b><%= todayTrash[0] %></b>
                         </div>
                     </div>
                 </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-danger text-white mb-4">
+                        <div class="card-body">유리 <b><%= todayTrash[3] %></b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-danger text-white mb-4">
+                        <div class="card-body">플라스틱 <b><%= todayTrash[1] %></b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-secondary text-white mb-4">
+                        <div class="card-body">쓰레기투입 총합계 <b><%= todayTrash[2] %></b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="font-weight-bold bg-light pt-3 pb-3 pl-3 rounded shadow-sm">이번주 배출량</h5>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body">캔 <b><%= weekTrash[0] %></b>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body">유리 <b><%= weekTrash[2] %></b>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body">플라스틱 <b><%= weekTrash[1] %></b>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-secondary text-white mb-4">
+                        <div class="card-body">쓰레기투입 총합계 <b><%= weekTrash[0] + weekTrash[1] + weekTrash[2] %></b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="font-weight-bold bg-light pt-3 pb-3 pl-3 rounded shadow-sm">이번달 배출량</h5>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-primary text-white mb-4">
+                        <div class="card-body">캔 <b><%= monthTrash[0] %></b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-primary text-white mb-4">
+                        <div class="card-body">유리 <b><%= monthTrash[2] %></b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-primary text-white mb-4">
+                        <div class="card-body">플라스틱 <b><%= monthTrash[1] %></b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-secondary text-white mb-4">
+                        <div class="card-body">쓰레기투입 총합계 <b><%= monthTrash[0] + monthTrash[1] + monthTrash[2] %></b>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <table class="table rounded shadow-sm">
+                    <thead class="bg-success text-white">
+                    <tr>
+                        <th scope="col">날짜</th>
+                        <th>캔</th>
+                        <th>플라스틱</th>
+                        <th>유리</th>
+                        <th>총 투입량</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% monthlyTrash.forEach( function(item){ %>
+                        <tr class="btn-light monthlyRow">
+                            <th scope="row"><%= item._id.year %>-<%= item._id.month %></th>
+                            <td><%= item.can %></td>
+                            <td><%= item.plastic %></td>
+                            <td><%= item.glass %></td>
+                            <td><%= item.can + item.plastic + item.glass %></td>
+                        </tr>
+                    <% }) %>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

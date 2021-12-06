@@ -7,6 +7,7 @@ const connect = () => {
     mongoose.connect(url, {
         useNewUrlParser: true
     },
+    // mongoose.connect( process.env.MONGODB_URI,
         (error) => {
             if (error) {
                 console.log('MongoDB connection failure!', error);

@@ -1,5 +1,12 @@
 const createError = require('http-errors');
 const express = require('express');
+// import express from "express";
+// import { fileURLToPath } from "url";
+// import { dirname } from "path";
+// const __fiename = fileURLToPath( import.meta.url);
+// const __dirname = dirname(__filename);
+// app.set("views", __dirname + "/views");
+
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');

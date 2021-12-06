@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "bootstrap": "^5.0.1",
+    "chartjs-plugin-datalabels": "^2.0.0",
     "cheerio": "^1.0.0-rc.10",
     "connect-mongodb-session": "^2.4.1",
     "cookie-parser": "~1.4.4",
@@ -23,6 +24,7 @@
     "moment": "^2.29.1",
     "mongoose": "^5.12.9",
     "morgan": "~1.9.1",
+    "nodemon": "^2.0.7",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "pug": "2.0.0-beta11",
@@ -31,7 +33,6 @@
   },
   "description": "Personal Automation waste-sorting Machine",
   "main": "app.js",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wltn999/PAM.git"

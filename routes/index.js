@@ -21,7 +21,6 @@ router.get('/test', async (req, res, next) => {
     res.send();
 });
 
-
 router.get('/', async (req, res, next) => {
     if (req.session.name === undefined) {
         var todayTrash = [0, 0, 0, 0];
@@ -229,7 +228,7 @@ router.get('/week', isLoggedIn, async (req, res, next) => {
 router.get('/month', isLoggedIn, async (req, res, next) => {
 
     var userId = req.session._id;
-    var trashData = await Trash.find({n}).sort({"entryId": -1});
+    var trashData = await Trash.find({userId: userId}).sort({"entryId": -1});
     // 금월
     let monthCan = 0, monthPlastic = 0, monthTotal = 0, monthGlass = 0;
     const month = moment().startOf('month').subtract(1, 'd').format('YYYY-MM-DD');
@@ -667,7 +666,7 @@ router.get('/detail', isAdmin, async (req, res, next) => {
             if (target === today) {
                 todayCan += element.can;
                 todayPlastic += element.plastic;
-                todayTotal += element.total;
+                todayTotal += element.can+element.plastic+element.glass;
                 todayGlass += element.glass;
             }
         });
@@ -680,7 +679,7 @@ router.get('/detail', isAdmin, async (req, res, next) => {
             if (moment(target).isAfter(week)) {
                 weekCan += element.can;
                 weekPlastic += element.plastic;
-                weekTotal += element.total;
+                weekTotal += element.can+element.plastic+element.glass;
                 weekGlass += element.glass;
             }
         });
@@ -693,7 +692,7 @@ router.get('/detail', isAdmin, async (req, res, next) => {
             if (moment(target).isAfter(month)) {
                 monthCan += element.can;
                 monthPlastic += element.plastic;
-                monthTotal += element.total;
+                monthTotal += element.can+element.plastic+element.glass;
                 monthGlass += element.glass;
             }
         });
@@ -870,6 +869,9 @@ router.post("/sort_data", async (req, res) => {
     }
     res.send({trashData: trashData});
 })
-
-
+router.get('/envi', async (req, res, next) => {
+    res.render('envi', {
+        title: 'envi | PAM'
+    })
+});
 module.exports = router;

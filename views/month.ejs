@@ -1,30 +1,37 @@
 <div class="container-fluid px-4">
-    <h4 class="mt-4">이번달 배출량</h4>
+    <div class="card mt-4"></div>
+    <div class="card-header d-flex justify-content-between">    </div>
+    <h2 class="font-weight-bold bg-light pt-3 pb-3 pl-3 rounded shadow-sm">이번달 배출량</h2>
+    <h6 class="mb-2 mt-4 ml-2 text-secondary font-weight-bold"><%= name %>님의 이번달 쓰레기 배출량입니다.</h6>
     <div class="card mb-4">
         <div class="card-body">
-            <h6><%= name %>님의 이번달 쓰레기 배출량입니다.</h6>
-            <div class="row">
+            
+        <div class="col-md-6 graph mb-4 mt-4 justify-content-center ">
+            <canvas id="monthChart" class="ml-2 mb-4"></canvas>
+        </div>
+
+        <div class="row h5 font-weight-bold">
                 <div class="col-xl-3 col-md-6">
-                    <div class="card bg-primary text-white mb-4">
+                    <div class="card text-dark mb-4" style="background-color: #B7FFC0;">
                         <div class="card-body">캔 <%= monthTrash[0] %>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
-                    <div class="card bg-primary text-white mb-4">
-                        <div class="card-body">유리 <%= monthTrash[1] %>
+                    <div class="card text-dark mb-4" style="background-color: #FFC7C1;">
+                        <div class="card-body">유리 <%= monthTrash[2] %>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card text-dark mb-4" style="background-color: #B7FCFF;">
+                        <div class="card-body">플라스틱 <%= monthTrash[1] %>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
                     <div class="card bg-primary text-white mb-4">
-                        <div class="card-body">플라스틱 <%= monthTrash[2] %>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="card bg-secondary text-white mb-4">
-                        <div class="card-body">쓰레기투입 총합계 <%= monthTrash[3] %>
+                        <div class="card-body">재활용품 투입 총합계 <%= monthTrash[1] + monthTrash[2] + monthTrash[0] %>
                         </div>
                     </div>
                 </div>
@@ -32,3 +39,60 @@
         </div>
     </div>
 </div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script>
+    var ctx = document.getElementById("monthChart").getContext('2d');
+    var doughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ["캔", "유리", "플라스틱","총합계"],
+            datasets: [{
+                label: '이달의 쓰레기 배출량',
+                data: [<%= monthTrash[0] %>, <%= monthTrash[2] %>, <%= monthTrash[1] %>, <%= monthTrash[0] +monthTrash[1] + monthTrash[2]  %>],
+                backgroundColor: [
+                '#B7FFC0',
+                '#FFC7C1',
+                '#B7FCFF',
+                '#007BFF'
+                ],
+            }]
+            },
+        options: {
+            maintainAspectRatio : false, 
+            pieceLabel: { 
+            mode:"label", 
+            position:"outside", 
+            fontSize: 11, 
+            fontStyle: 'bold' },
+            legend: {
+                display: false
+			},
+            maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        display: false,
+                        beginAtZero: true
+                    }
+                }],
+                yAxes: [{
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        display: false,
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
